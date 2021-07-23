@@ -9,12 +9,21 @@ import com.newlecture.web.service.NoticeService;
 
 public class JDBCNoticeService implements NoticeService{
 	
+
+	
+	//private String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+	//private String uid = "NEWLEC";
+	//private String pwd = "11111";
+	//private String driver = "oracle.jdbc.driver.OracleDriver";
+	
+	
+	
 	public List<Notice> getList(int page, String field, String query){
 		
 		List<Notice> noticeList = new ArrayList<>();
 		
-		Notice notice1 = new Notice(1, "Á¦¸ñ1", "ccw", new Date(), "¿À´Ã°Ô½Ã±ÛÀÔ´Ï´Ù.", 1, "");
-		Notice notice2 = new Notice(2, "Á¦¸ñ2", "kmj", new Date(), "¾îÁ¦°Ô½Ã±ÛÀÔ´Ï´Ù.", 5, "");
+		Notice notice1 = new Notice(1, "ï¿½ï¿½ï¿½ï¿½1", "ccw", new Date(), "ï¿½ï¿½ï¿½Ã°Ô½Ã±ï¿½ï¿½Ô´Ï´ï¿½.", 1, "");
+		Notice notice2 = new Notice(2, "ï¿½ï¿½ï¿½ï¿½2", "kmj", new Date(), "ï¿½ï¿½ï¿½ï¿½ï¿½Ô½Ã±ï¿½ï¿½Ô´Ï´ï¿½.", 5, "");
 		
 		
 		noticeList.add(notice1);
