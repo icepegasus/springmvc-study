@@ -44,6 +44,14 @@
 		<artifactId>commons-dbcp2</artifactId>
 		<version>2.8.0</version>
 	</dependency>
+	
+	<!-- spring json 출력 설정 (객체를 그냥 반환(return)해도 알아서 json으로 바꿔서 화면으로 던져점 ) -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>2.11.2</version>
+	</dependency>
+	
   </dependencies>
   
   <properties>
