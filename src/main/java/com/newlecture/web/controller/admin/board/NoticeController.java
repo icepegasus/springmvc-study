@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,35 +25,46 @@ public class NoticeController {
 	@RequestMapping("/list")
 	public String list() {
 		
-		return "";
+		return "admin.board.notice.list";
 	}
 	
-	@RequestMapping("/reg")
-	@ResponseBody
-	public String reg(String title, String content, String category, String[] foods, String food, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException{
+	@GetMapping("/reg")
+	public String reg() {
 		
-		long size = file.getSize();
-		String fileName =  file.getOriginalFilename();
-		System.out.printf("fileName:%s, fileSize:%d\n",fileName, size);
+		return "admin.board.notice.reg";
 		
-		//ServletContext ctx = request.getServletContext();
-		 
-		String webPath = "/static/upload";
-		String realPath = ctx.getRealPath(webPath);
-		System.out.printf("realPath : %s\n", realPath);
+	}
+	
+	@PostMapping("/reg")
+	public String reg(String title, String content, String category, String[] foods, String food, MultipartFile[] files, HttpServletRequest request) throws IllegalStateException, IOException{
 		
-		//업로드 경로가 없을경우 디렉토리 생성
-		File savePath = new File(realPath);
-		if(!savePath.exists()) {
-			savePath.mkdirs();
+		
+		for(MultipartFile file : files) {
+			
+			long size = file.getSize();
+			String fileName =  file.getOriginalFilename();
+			System.out.printf("fileName:%s, fileSize:%d\n",fileName, size);
+			
+			//ServletContext ctx = request.getServletContext();
+			 
+			String webPath = "/static/upload";
+			String realPath = ctx.getRealPath(webPath);
+			System.out.printf("realPath : %s\n", realPath);
+			
+			//업로드 경로가 없을경우 디렉토리 생성
+			File savePath = new File(realPath);
+			if(!savePath.exists()) {
+				savePath.mkdirs();
+			}
+			
+			realPath += File.separator + fileName;
+			
+			System.out.printf("last realPath : %s\n", realPath);
+			
+			File saveFile = new File(realPath);
+			file.transferTo(saveFile);
 		}
 		
-		realPath += File.separator + fileName;
-		
-		System.out.printf("last realPath : %s\n", realPath);
-		
-		File saveFile = new File(realPath);
-		file.transferTo(saveFile);
 		
 		
 		for(String f : foods) {
@@ -60,19 +73,19 @@ public class NoticeController {
 		
 		System.out.println("radio food : "+food);
 		
-		return String.format("title : %s<br>content : %s<br>category : %s<br>",title,content,category);
+		return "admin.board.notice.reg";
 	}
 
 	@RequestMapping("/edit")
 	public String edit() {
 		
-		return "";
+		return "admin.board.notice.edit";
 	}
 
 	@RequestMapping("/del")
 	public String del() {
 		
-		return "";
+		return "admin.board.notice.list";
 	}
 
 
